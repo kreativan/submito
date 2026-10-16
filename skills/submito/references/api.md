@@ -114,23 +114,3 @@ Live mode: a field is checked when the user commits it (`change`: leaves a chang
 Language = closest `lang` attribute (form → `<html>`); `de-AT` → `de`; unknown → `en`. Built in: `en`, `bg`, `de`, `es`, `fr`, `sr` (Latin). Override with `messages`.
 
 Keys: `required`, `email`, `url`, `number`, `minlength` (`{min}`), `maxlength` (`{max}`), `min` (`{min}`), `max` (`{max}`), `pattern`, `invalid`, `phone`, `captcha`, `captcha_required`, `captcha_error`, `success_title`, `success`, `error_title`, `error`, `network`, `ok`.
-
-## Migrating from formsub
-
-| formsub | submito |
-|---------|---------|
-| `formsub.newForm` / `window.formsub` | `submito.newForm` / `window.submito` |
-| `formId: 'x'` | `form: 'x'` / `'#x'` / element |
-| `ajaxUrl` | `url` (or form `action`) |
-| `submitButton` (required) | optional |
-| `recaptcha: true, recaptcha_site_key: K` | `recaptcha: K` |
-| `iti: { id: 'phone' }` | `iti: { input: '#phone' }` (`id` still accepted) |
-| `responseType: 'default'` | `'dialog'` (new default) or `'none'` (old inline-only behavior) |
-| `window` event `formsub:BeforeSubmit` (detail = FormData) | form event `submito:before` (`detail.formData`) |
-| `formsub:AfterSubmit` / `ResponseSuccess` / `ResponseError` | `submito:after` / `submito:success` / `submito:error` |
-| `response.status === 'success'` | `response.success` |
-| `response.form_css_id` | `event.target.id` / `form.form.id` |
-| server fields on `response` | `response.data.*` |
-| `errors[].error` | `errors[].message` |
-| callback `(response)` | callback `(response, form)` |
-| SweetAlert2 error toast | modal; pass `swal: { toast: true, … }` for toasts |

@@ -6,8 +6,8 @@ description: >-
   fetch/FormData with live validation, the built-in response dialog or
   SweetAlert2, math captcha, Google reCAPTCHA v3, Cloudflare Turnstile,
   intl-tel-input phone fields, submito:* form events, or the JSON
-  success/error response contract on the server. Also use when migrating
-  from formsub. Not for developing the submito library itself.
+  success/error response contract on the server. Not for developing the
+  submito library itself.
 license: MIT
 metadata:
   audience: consumers
@@ -30,7 +30,6 @@ const form = submito.newForm({ form: '#contact' });
 - Choosing options, markup, validation messages, events or response JSON for submito
 - Adding Turnstile, reCAPTCHA, the math captcha, intl-tel-input or SweetAlert2 to a submito form
 - Writing the server endpoint that a submito form calls
-- Migrating `formsub.newForm` code (see [references/api.md#migrating-from-formsub](references/api.md#migrating-from-formsub))
 
 Not for: React/Vue form state libraries, SSR code paths without `document`, or editing submito itself.
 
@@ -89,11 +88,11 @@ This already gives you live validation, a disabled button with the indicator dur
 - Client validation is UX. **Always re-validate on the server.**
 - Never render `response.message`, `response.errors` or `response.data` with `innerHTML` or Swal `html`. Use `textContent` / Swal `text`.
 - Only use documented options, events and instance methods ([references/api.md](references/api.md)). Do not invent APIs.
-- Events are on the **form element** (they bubble). Do not listen on `window` for `formsub:*` names; those are gone.
+- Events are on the **form element** (they bubble). Do not listen on `window`; use `submito:*` events.
 
 ## References (read only what the task needs)
 
-- Options, response object, events, instance API, markup hooks, i18n keys, migration from formsub → [references/api.md](references/api.md)
+- Options, response object, events, instance API, markup hooks, i18n keys → [references/api.md](references/api.md)
 - Turnstile, reCAPTCHA, math captcha, intl-tel-input, SweetAlert2, dialog theming → [references/integrations.md](references/integrations.md)
 - Server endpoints (Express, PHP, Laravel, WordPress) + captcha verification → [references/server.md](references/server.md)
 - Exact types (when installed from npm): `node_modules/submito/types/index.d.ts`. It is the source of truth if a reference and your memory disagree.

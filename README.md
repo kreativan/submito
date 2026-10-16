@@ -2,8 +2,6 @@
 
 Vanilla JavaScript AJAX forms for plain HTML. One call to `submito.newForm()` binds an existing `<form>` to `fetch`. It adds live validation from your HTML attributes, a built-in response dialog, captchas (math, reCAPTCHA v3, Cloudflare Turnstile), international phone input and form events. There are no framework or runtime dependencies.
 
-> Work in progress (`0.0.0`): the API may change before `0.1.0`.
-
 ## Add it to your project
 
 **npm**

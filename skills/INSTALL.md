@@ -34,7 +34,7 @@ npx submito skill --claude   # or --cursor / --codex / --all, plus --dir <path>
 ./skills/install.ps1 -Target C:\path\to\your-app -Cursor
 ```
 
-With no tool flag, the scripts install for Cursor, Claude Code and Codex. Re-running replaces the previous copy. If an old `formsub` skill is present in the same directory, the scripts remove it.
+With no tool flag, the scripts install for Cursor, Claude Code and Codex. Re-running replaces the previous copy.
 
 ### Manual copy
 

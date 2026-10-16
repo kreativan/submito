@@ -43,12 +43,7 @@ if ($All -or (-not $Cursor -and -not $Claude -and -not $Codex)) {
 function Install-One([string] $Rel) {
   $destParent = Join-Path $Target $Rel
   $dest = Join-Path $destParent 'submito'
-  $legacy = Join-Path $destParent 'formsub'
   New-Item -ItemType Directory -Force -Path $destParent | Out-Null
-  if (Test-Path -LiteralPath (Join-Path $legacy 'SKILL.md')) {
-    Remove-Item -Recurse -Force -LiteralPath $legacy
-    Write-Host "removed old skill: $legacy"
-  }
   if (Test-Path -LiteralPath $dest) {
     Remove-Item -Recurse -Force -LiteralPath $dest
   }

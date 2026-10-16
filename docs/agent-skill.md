@@ -24,7 +24,7 @@ The skill ships inside the npm package, so it always matches the version you ins
 
 - copies it into the agent folders your project already has (`.claude`, `.cursor`, `.agents`)
 - installs into all three when none of them exist yet
-- replaces an older copy of the skill, and removes a legacy `formsub` skill
+- replaces an older copy of the skill
 
 | Option | Installs into |
 |--------|---------------|

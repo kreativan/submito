@@ -112,13 +112,8 @@ function installSkill({ tools, dir }) {
   for (const tool of targets) {
     const skillsDir = path.join(dir, TOOLS[tool], 'skills');
     const dest = path.join(skillsDir, 'submito');
-    const legacy = path.join(skillsDir, 'formsub');
 
     fs.mkdirSync(skillsDir, { recursive: true });
-    if (fs.existsSync(path.join(legacy, 'SKILL.md'))) {
-      fs.rmSync(legacy, { recursive: true, force: true });
-      console.log(`removed old skill: ${path.relative(dir, legacy)}`);
-    }
     fs.rmSync(dest, { recursive: true, force: true });
     fs.cpSync(SOURCE, dest, { recursive: true });
     console.log(`installed: ${path.relative(dir, dest) || dest}`);

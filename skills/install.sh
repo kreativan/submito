@@ -71,12 +71,7 @@ fi
 install_one() {
   local rel="$1"
   local dest="$TARGET/$rel/submito"
-  local legacy="$TARGET/$rel/formsub"
   mkdir -p "$(dirname "$dest")"
-  if [[ -f "$legacy/SKILL.md" ]]; then
-    rm -rf "$legacy"
-    echo "removed old skill: $legacy"
-  fi
   rm -rf "$dest"
   cp -R "$SRC" "$dest"
   echo "installed: $dest"

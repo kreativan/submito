@@ -13,7 +13,7 @@ Guidance for AI coding agents and humans working **in this repository** (develop
 
 ## What this project is
 
-**submito** is a small, dependency-free **browser** library that binds an existing HTML form to `fetch`. It covers validation, loading state, captchas, phone input, response UI and events. It is not a React/Vue form library and not an SSR package. It was formerly named **formsub**. Do not reintroduce that name, except in the migration notes in `skills/submito/references/api.md`.
+**submito** is a small, dependency-free **browser** library that binds an existing HTML form to `fetch`. It covers validation, loading state, captchas, phone input, response UI and events. It is not a React/Vue form library and not an SSR package.
 
 Public surface:
 
