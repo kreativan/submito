@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submito Playground</title>
+  <link rel="stylesheet" href="./style.css" />
+
+  <!-- Optional integrations: submito uses them when these globals exist -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@29.5.5/dist/css/intlTelInput.css" />
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@29.5.5/dist/js/intlTelInput.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.25/dist/sweetalert2.all.min.js"></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+</head>
+
+<body>
+  <div class="shell">
+    <header class="masthead">
+      <a class="masthead__brand" href="/">Submito</a>
+      <span class="masthead__tag">playground</span>
+      <a class="masthead__link" href="/">Docs →</a>
+    </header>
+
+    <section class="intro">
+      <h1 class="intro__title">Try every feature</h1>
+      <p class="intro__lead">
+        Each form is bound with <code>submito.newForm()</code> and posts to <code>/api/submit</code>,
+        mocked in your browser. Choose how responses are shown and what the server answers, then submit.
+      </p>
+    </section>
+
+    <section class="controls" aria-label="Playground settings">
+      <fieldset class="segmented">
+        <legend class="controls__label">Response UI</legend>
+        <label><input type="radio" name="response-ui" value="dialog" checked /> <span>dialog</span></label>
+        <label><input type="radio" name="response-ui" value="swal" /> <span>swal</span></label>
+        <label><input type="radio" name="response-ui" value="none" /> <span>none</span></label>
+        <label><input type="radio" name="response-ui" value="callback" /> <span>callback</span></label>
+      </fieldset>
+
+      <label class="controls__select">
+        <span class="controls__label">Server answers</span>
+        <select id="scenario"></select>
+      </label>
+    </section>
+
+    <div class="layout">
+      <main class="workspace">
+        <div class="tabs" role="tablist" aria-label="Demo forms">
+          <button type="button" class="tabs__tab" role="tab" id="tab-contact" aria-selected="true"
+            aria-controls="panel-contact" data-tab="contact">Contact</button>
+          <button type="button" class="tabs__tab" role="tab" id="tab-fields" aria-selected="false"
+            aria-controls="panel-fields" data-tab="fields" tabindex="-1">All fields</button>
+          <button type="button" class="tabs__tab" role="tab" id="tab-captcha" aria-selected="false"
+            aria-controls="panel-captcha" data-tab="captcha" tabindex="-1">Captchas</button>
+        </div>
+
+        <!-- Contact -->
+        <section class="tabs__panel" role="tabpanel" id="panel-contact" aria-labelledby="tab-contact"
+          data-panel="contact">
+          <p class="panel__hint">A typical contact form: live validation, phone input with E.164 output,
+            loading indicator.</p>
+          <form id="contact-form" class="card demo-form">
+            <p class="notice" data-notice hidden></p>
+
+            <div class="grid-2">
+              <label class="field">
+                <span class="field__label">Name</span>
+                <input name="name" type="text" required minlength="2" placeholder="Jane Doe" autocomplete="name" />
+              </label>
+
+              <label class="field">
+                <span class="field__label">Email</span>
+                <input name="email" type="email" required placeholder="jane@example.com" autocomplete="email" />
+              </label>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="contact-phone">Phone <small>optional</small></label>
+              <input id="contact-phone" name="phone" type="tel" autocomplete="tel" />
+            </div>
+
+            <label class="field">
+              <span class="field__label">Message</span>
+              <textarea name="message" rows="4" required maxlength="500" placeholder="How can we help?"></textarea>
+            </label>
+
+            <div class="demo-form__footer">
+              <button type="submit" class="button">Send message</button>
+              <span id="contact-indicator" class="indicator" hidden>
+                <span class="indicator__spinner" aria-hidden="true"></span> Sending…
+              </span>
+            </div>
+          </form>
+        </section>
+
+        <!-- All fields -->
+        <section class="tabs__panel" role="tabpanel" id="panel-fields" aria-labelledby="tab-fields" data-panel="fields"
+          hidden>
+          <p class="panel__hint">Every control type, HTML constraints (<code>minlength</code>, <code>min</code>,
+            <code>pattern</code>…), groups, files and a function-valued <code>data</code> option.
+          </p>
+          <form id="fields-form" class="card demo-form">
+            <p class="notice" data-notice hidden></p>
+
+            <fieldset class="section">
+              <legend class="section__title">Text inputs</legend>
+              <div class="grid-2">
+                <label class="field">
+                  <span class="field__label">Name</span>
+                  <input name="name" type="text" required minlength="2" autocomplete="name" />
+                </label>
+                <label class="field">
+                  <span class="field__label">Email</span>
+                  <input name="email" type="email" required autocomplete="email" />
+                </label>
+                <label class="field">
+                  <span class="field__label">Password <small>8+ chars</small></span>
+                  <input name="password" type="password" minlength="8" autocomplete="new-password" />
+                </label>
+                <label class="field">
+                  <span class="field__label">Username <small>a–z, 3–12</small></span>
+                  <input name="username" type="text" pattern="[a-z]{3,12}" title="Use 3–12 lowercase letters."
+                    autocomplete="username" />
+                </label>
+                <label class="field">
+                  <span class="field__label">Website</span>
+                  <input name="website" type="url" placeholder="https://example.com" />
+                </label>
+                <label class="field">
+                  <span class="field__label">Age <small>18–120</small></span>
+                  <input name="age" type="number" min="18" max="120" />
+                </label>
+                <label class="field">
+                  <span class="field__label">Start date</span>
+                  <input name="start_date" type="date" />
+                </label>
+                <div class="field">
+                  <label class="field__label" for="fields-phone">Phone</label>
+                  <input id="fields-phone" name="phone" type="tel" required autocomplete="tel" />
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="section">
+              <legend class="section__title">Select &amp; textarea</legend>
+              <label class="field">
+                <span class="field__label">Topic</span>
+                <select name="topic" required>
+                  <option value="">Choose one…</option>
+                  <option value="general">General</option>
+                  <option value="support">Support</option>
+                  <option value="billing">Billing</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field__label">Languages <small>multiple</small></span>
+                <select name="languages[]" multiple size="3">
+                  <option value="en">English</option>
+                  <option value="sr">Serbian</option>
+                  <option value="bg">Bulgarian</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field__label">Message <small>max 200</small></span>
+                <textarea name="message" rows="3" maxlength="200"></textarea>
+              </label>
+            </fieldset>
+
+            <fieldset class="section">
+              <legend class="section__title">Choices</legend>
+              <div class="choices" role="radiogroup" aria-label="Preferred contact">
+                <span class="field__label">Preferred contact</span>
+                <label class="choice"><input type="radio" name="contact" value="email" required /> Email</label>
+                <label class="choice"><input type="radio" name="contact" value="phone" /> Phone</label>
+                <label class="choice"><input type="radio" name="contact" value="either" /> Either</label>
+              </div>
+              <div class="choices" role="group" aria-label="Interests">
+                <span class="field__label">Interests</span>
+                <label class="choice"><input type="checkbox" name="interests[]" value="news" /> News</label>
+                <label class="choice"><input type="checkbox" name="interests[]" value="product" /> Product
+                  updates</label>
+                <label class="choice"><input type="checkbox" name="interests[]" value="events" /> Events</label>
+              </div>
+              <label class="choice choice--single"><input type="checkbox" name="terms" value="1" required /> I agree to
+                the terms</label>
+            </fieldset>
+
+            <fieldset class="section">
+              <legend class="section__title">Files &amp; math captcha</legend>
+              <div class="grid-2">
+                <label class="field">
+                  <span class="field__label">Attachment</span>
+                  <input name="attachment" type="file" accept=".pdf,.png,.jpg,.jpeg,.txt" />
+                </label>
+                <label class="field">
+                  <span class="field__label">Multiple files</span>
+                  <input name="files[]" type="file" multiple />
+                </label>
+              </div>
+              <label class="field field--narrow">
+                <span class="field__label">Are you human?</span>
+                <input name="numb_captcha" type="text" required />
+              </label>
+            </fieldset>
+
+            <div class="demo-form__footer">
+              <button type="submit" class="button" name="intent" value="save">Submit</button>
+              <button type="reset" class="button button--ghost">Reset</button>
+              <span id="fields-indicator" class="indicator" hidden>
+                <span class="indicator__spinner" aria-hidden="true"></span> Sending…
+              </span>
+            </div>
+          </form>
+        </section>
+
+        <!-- Captchas -->
+        <section class="tabs__panel" role="tabpanel" id="panel-captcha" aria-labelledby="tab-captcha"
+          data-panel="captcha" hidden>
+          <p class="panel__hint">Math captcha, Cloudflare Turnstile (test site key, always passes) and
+            reCAPTCHA v3 (stubbed here: Google has no v3 test key, so a fake token is sent).</p>
+          <form id="captcha-form" class="card demo-form">
+            <p class="notice" data-notice hidden></p>
+
+            <label class="field">
+              <span class="field__label">Email</span>
+              <input name="email" type="email" required autocomplete="email" />
+            </label>
+
+            <label class="field field--narrow">
+              <span class="field__label">Math captcha</span>
+              <input name="numb_captcha" type="text" required />
+            </label>
+
+            <div class="field">
+              <span class="field__label">Cloudflare Turnstile</span>
+              <div id="captcha-turnstile"></div>
+            </div>
+
+            <p class="hint">reCAPTCHA v3 runs invisibly on submit and adds <code>recaptcha_response</code>.</p>
+
+            <div class="demo-form__footer">
+              <button type="submit" class="button">Verify &amp; send</button>
+              <span id="captcha-indicator" class="indicator" hidden>
+                <span class="indicator__spinner" aria-hidden="true"></span> Verifying…
+              </span>
+            </div>
+          </form>
+        </section>
+      </main>
+
+      <aside class="inspector" aria-label="Inspector">
+        <section class="panel">
+          <header class="panel__header">
+            <h2 class="panel__title">Events</h2>
+            <button type="button" class="panel__action" id="clear-log">Clear</button>
+          </header>
+          <ol class="log" id="event-log" aria-live="polite"></ol>
+        </section>
+        <section class="panel">
+          <header class="panel__header">
+            <h2 class="panel__title">Request payload</h2>
+          </header>
+          <pre class="code" id="request">Submit a form to see the FormData.</pre>
+        </section>
+        <section class="panel">
+          <header class="panel__header">
+            <h2 class="panel__title">Response object</h2>
+          </header>
+          <pre class="code" id="response">—</pre>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>

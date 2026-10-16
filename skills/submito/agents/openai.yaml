@@ -1,0 +1,5 @@
+# Optional Codex UI metadata for the submito skill.
+# See https://developers.openai.com/codex/skills
+display_name: submito
+short_description: AJAX HTML forms with submito.newForm (validation, captchas, dialogs)
+default_prompt: Help me wire this HTML form with submito (live validation, fetch submit, response dialog, JSON contract).

@@ -1,0 +1,61 @@
+{
+  "name": "submito",
+  "version": "0.0.0",
+  "description": "Vanilla JS AJAX form submission: live validation, captchas, phone input and response dialogs. Zero dependencies.",
+  "type": "module",
+  "main": "./dist/submito.js",
+  "module": "./dist/submito.mjs",
+  "types": "./types/index.d.ts",
+  "unpkg": "./dist/submito.min.js",
+  "jsdelivr": "./dist/submito.min.js",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/submito.mjs",
+      "default": "./dist/submito.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "submito": "bin/submito.js"
+  },
+  "files": [
+    "dist",
+    "types",
+    "bin",
+    "skills/submito"
+  ],
+  "keywords": [
+    "form",
+    "ajax",
+    "fetch",
+    "formdata",
+    "validation",
+    "vanilla",
+    "recaptcha",
+    "turnstile",
+    "intl-tel-input",
+    "sweetalert2",
+    "agent-skills"
+  ],
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vite build && vite build --mode min",
+    "preview": "vitepress preview docs",
+    "play": "vite",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "prepublishOnly": "npm run build",
+    "publish": "node scripts/publish.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "vite": "^6.0.7",
+    "vitepress": "^2.0.0-alpha.20"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

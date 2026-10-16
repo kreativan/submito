@@ -1,0 +1,15 @@
+# Cloudflare Pages response headers. VitePress copies this file from docs/public/ to the
+# build root; Pages reads it and does not serve it. nginx.conf sets the same types for Docker.
+
+# Markdown twins of every page (/configuration.md) and the agent skill (/skills/submito/…)
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+
+/*.yaml
+  Content-Type: text/yaml; charset=utf-8
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8

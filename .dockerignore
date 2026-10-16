@@ -1,0 +1,11 @@
+node_modules
+dist
+.git
+.cursor
+.claude
+.agents
+docs/.vitepress/cache
+docs/.vitepress/dist
+*.local
+.env*
+.DS_Store

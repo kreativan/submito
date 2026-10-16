@@ -1,0 +1,12 @@
+node_modules
+dist
+*.local
+.DS_Store
+docs/.vitepress/cache
+docs/.vitepress/dist
+
+# Consumer agent skills must not be active while developing this library.
+# Canonical package lives in skills/submito/ (copy into apps via skills/install.*).
+.cursor/skills/
+.claude/skills/
+.agents/skills/
