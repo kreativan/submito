@@ -1,6 +1,6 @@
 {
   "name": "submito",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Vanilla JS AJAX form submission: live validation, captchas, phone input and response dialogs. Zero dependencies.",
   "type": "module",
   "main": "./dist/submito.js",
