@@ -42,9 +42,9 @@ Your endpoint returns JSON, for example `{ "status": "success", "message": "Than
 
 ## Docs & playground
 
-- **Documentation:** [Getting started](docs/getting-started.md) · [Configuration](docs/configuration.md) · [Server responses](docs/server-responses.md) · [Events & instance API](docs/events.md) · [all pages](docs/)
+- **Documentation:** [submito.kreativan.dev](https://submito.kreativan.dev/) · [Getting started](docs/getting-started.md) · [Configuration](docs/configuration.md) · [Server responses](docs/server-responses.md) · [Events & instance API](docs/events.md) · [all pages](docs/)
+- **Playground:** [submito.kreativan.dev/playground/](https://submito.kreativan.dev/playground/)
 - **AI agents:** `npx submito skill` installs the agent skill for Claude Code, Cursor and Codex. The docs site also serves `/llms.txt` and `/llms-full.txt`. See [AI & agents](docs/ai.md) and [Agent skill](docs/agent-skill.md).
-- **Playground:** [`playground/`](playground/). Run `npm install && npm run dev`, then open [localhost:5173/playground/](http://localhost:5173/playground/). The docs are served at the root of the same address.
 
 ## Development
 

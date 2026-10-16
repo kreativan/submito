@@ -1,6 +1,6 @@
 {
   "name": "submito",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Vanilla JS AJAX form submission: live validation, captchas, phone input and response dialogs. Zero dependencies.",
   "type": "module",
   "main": "./dist/submito.js",
@@ -50,6 +50,18 @@
     "publish": "node scripts/publish.js"
   },
   "license": "MIT",
+  "author": {
+    "name": "Ivan Milincic",
+    "url": "https://kreativan.dev"
+  },
+  "homepage": "https://kreativan.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kreativan/submito.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kreativan/submito/issues"
+  },
   "devDependencies": {
     "esbuild": "^0.28.2",
     "vite": "^6.0.7",
