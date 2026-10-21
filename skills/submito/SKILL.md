@@ -6,7 +6,8 @@ description: >-
   fetch/FormData with live validation, the built-in response dialog or
   SweetAlert2, math captcha, Google reCAPTCHA v3, Cloudflare Turnstile,
   intl-tel-input phone fields, submito:* form events, or the JSON
-  success/error response contract on the server. Not for developing the
+  success/error response contract on the server, including forms in Astro
+  components and Astro API routes. Not for developing the
   submito library itself.
 license: MIT
 metadata:
@@ -51,13 +52,46 @@ Not for: React/Vue form state libraries, SSR code paths without `document`, or e
   <span id="sending" hidden>Sending…</span>
 </form>
 
-<script type="module">
+<script>
   import submito from 'submito';
   submito.newForm({ form: '#contact', indicator: '#sending' });
 </script>
 ```
 
 This already gives you live validation, a disabled button with the indicator during the request, the built-in success/error dialog, server field errors inline, and a reset on success.
+
+The bare `import 'submito'` needs a bundler (Astro, Vite). Without one, load the CDN build and use `window.submito` instead.
+
+### In Astro
+
+- Use a plain `<script>` with **no attributes**. Astro only bundles scripts that have no attributes other than `src`. `type="module"`, `defer` or anything else makes the tag `is:inline`, so the `submito` import is never resolved and the browser throws.
+- Keep the setup code out of the component. Put it in `src/lib/` (for example `src/lib/forms.ts` exporting `initContactForm()`) and call it from the component's `<script>`.
+- Third-party integration scripts from a CDN (Turnstile, reCAPTCHA, intl-tel-input, SweetAlert2) are not bundled. Load them with `<script is:inline src="…">` in the layout or page, or pass page-specific ones to the layout's `scripts` prop. Not inside a reusable component: inline scripts are not deduplicated.
+- The script runs in the browser, never in the frontmatter. Do not import submito in the `---` block.
+- With `<ClientRouter />` (view transitions), bind **only** inside `astro:page-load` (it also fires on the first load), allow for `newForm()` returning `null` on pages without the form, and destroy on `astro:before-swap`:
+
+  ```js
+  let form = null;
+  document.addEventListener('astro:page-load', () => {
+    form = submito.newForm({ form: '#contact' });
+  });
+  document.addEventListener('astro:before-swap', () => {
+    form?.destroy();
+    form = null;
+  });
+  ```
+
+- Site keys can be `PUBLIC_*` env vars. Secret keys never use the `PUBLIC_` prefix and are read only in server code.
+- An endpoint in `src/pages/api/*.ts` needs on-demand rendering: `output: 'server'`, or `export const prerender = false` with an adapter. A fully static build must post to an external endpoint.
+
+```astro
+<form id="contact" action="/api/contact" method="post">…</form>
+
+<script>
+  import { initContactForm } from '@src/lib/forms';
+  initContactForm('#contact');
+</script>
+```
 
 ## Decision guide
 
@@ -101,6 +135,7 @@ This already gives you live validation, a disabled button with the indicator dur
 ## Checklist before finishing
 
 - [ ] The form exists in the DOM before `newForm`, and `url` or `action` is set
+- [ ] Astro: the `<script>` that imports submito has no attributes, and CDN integration scripts use `is:inline`
 - [ ] Every submitted field has a `name`, and constraints are in HTML (not duplicated in JS)
 - [ ] The endpoint returns JSON matching the contract; field error names match input `name`s
 - [ ] Integration scripts are loaded and captcha tokens are verified on the server
